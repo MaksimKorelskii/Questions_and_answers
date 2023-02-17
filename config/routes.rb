@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   devise_for :users
 
-  resources :questions, only: %i[ new create show ] do
+  resources :questions, only: %i[ index new create show ] do
     resources :answers, shallow: true, only: %i[ new create show ]
   end
 end
