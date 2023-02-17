@@ -42,5 +42,4 @@ feature 'User can sign up', %q{
 
     expect(page).to have_content "Password is too short (minimum is 6 characters)"
   end
-
 end
