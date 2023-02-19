@@ -1,14 +1,18 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!, except: %i[ show ]
   before_action :set_question, only: %i[ new create ]
 
   def new
     @answer = @question.answers.new
   end
 
+  def show
+  end
+
   def create
     @answer = @question.answers.new(answer_params)
     if @answer.save
-      redirect_to @answer
+      redirect_to @question
     else
       render :new
     end

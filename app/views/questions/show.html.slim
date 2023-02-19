@@ -1,2 +1,13 @@
-h1= @question.title
+h3 Question
+p= @question.title
 p= @question.body
+
+h3 Answers
+p= render @question.answers
+
+h3 Send Answer
+= form_with model: [ @question, @answer ], method: :post, local: true do |f|
+  = render 'shared/errors', resource: @answer
+  = f.label :body
+  = f.text_area :body
+  = f.submit 'Answer'
