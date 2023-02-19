@@ -6,8 +6,7 @@ feature "Authenticated user can create answers", %q{
 } do
 
   given(:user) { create(:user) }
-  # given(:author) { create(:user, :confirmed_user) }
-  given(:question) { create(:question) }
+  given(:question) { create(:question, author: user) }
 
   describe "Authenticated user" do
     background do
