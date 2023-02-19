@@ -1,9 +1,18 @@
 h3 Question
 p= @question.title
 p= @question.body
+p= link_to 'Delete question',
+            question_path(@question),
+            method: :delete
 
 h3 Answers
-p= render @question.answers
+- @question.answers.each do |answer|
+  - if answer.persisted?
+    p
+      = answer.body
+      = link_to 'Delete',
+                answer_path(answer),
+                method: :delete
 
 h3 Send Answer
 = form_with model: [ @question, @answer ], method: :post, local: true do |f|
