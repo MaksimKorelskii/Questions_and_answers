@@ -6,13 +6,7 @@ p= link_to 'Delete question',
             method: :delete
 
 h3 Answers
-- @question.answers.each do |answer|
-  - if answer.persisted?
-    p
-      = answer.body
-      = link_to 'Delete',
-                answer_path(answer),
-                method: :delete
+p= render @question.answers
 
 h3 Send Answer
 = form_with model: [ @question, @answer ], method: :post, local: true do |f|

@@ -41,4 +41,53 @@ RSpec.describe QuestionsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #index' do
+    let(:questions) { create_list :question, 3, author: user }
+    before { get :index }
+
+    it 'renders index view' do
+      expect(response).to render_template :index
+    end
+  end
+
+  describe 'GET #show' do
+    let(:question) { create :question, author: user }
+
+    it 'renders show view' do
+      get :show, params: { id: question }
+      expect(response).to render_template :show
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    let(:author) { create :user }
+    let!(:question) { create :question, author: author }
+
+    context "User is the author of the question" do
+      before { login(author) }
+
+      it 'Author deletes the question from database' do
+        expect { delete :destroy, params: { id: question} }.to change(Question, :count).by(-1)
+      end
+
+      it 'redirects to questions' do
+        delete :destroy, params: { id: question }
+        expect(response).to redirect_to questions_path
+      end
+    end
+
+    context "User isn't the author of the question" do
+      before { login(user) }
+
+      it 'User tries to delete the question from database' do
+        expect { delete :destroy, params: { id: question} }.not_to change(Question, :count)
+      end
+
+      it 'redirects to questions' do
+        delete :destroy, params: { id: question }
+        expect(response).to redirect_to questions_path
+      end
+    end
+  end
 end
