@@ -16,7 +16,7 @@ class AnswersController < ApplicationController
     if @answer.save
       redirect_to @question
     else
-      render :new
+      render 'questions/show'
     end
   end
 
