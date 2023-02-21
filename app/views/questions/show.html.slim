@@ -6,7 +6,8 @@ p= link_to 'Delete question',
             method: :delete
 
 h3 Answers
-p= render @question.answers
+.answers
+  p= render @question.answers
 
 h3 Send Answer
 = form_with model: [ @question, @answer ], method: :post, local: true do |f|

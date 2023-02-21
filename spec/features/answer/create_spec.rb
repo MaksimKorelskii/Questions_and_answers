@@ -18,7 +18,10 @@ feature "Authenticated user can create answers", %q{
       fill_in "Body", with: "MyText"
       click_on "Answer"
 
-      expect(page).to have_content("MyText")
+      expect(current_path).to eq question_path(question)
+      within '.answers' do # чтобы убедиться, что ответ в списке, а не в форме
+        expect(page).to have_content("MyText")
+      end
     end
 
     scenario "Tries to create answer with invalid params" do
