@@ -14,7 +14,7 @@ feature "Authenticated user can create answers", %q{
       visit question_path(question)
     end
 
-    scenario "Tries to create answer" do
+    scenario "Tries to create answer", js: true do
       fill_in "Body", with: "MyText"
       click_on "Answer"
 
