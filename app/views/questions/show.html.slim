@@ -10,8 +10,9 @@ h3 Answers
   p= render @question.answers
 
 h3 Send Answer
-= form_with model: [ @question, @answer ], method: :post do |f|
+.answer-errors
   = render 'shared/errors', resource: @answer
+= form_with model: [ @question, @answer ], method: :post, class: 'new-answer' do |f|
   = f.label :body
   = f.text_area :body
   = f.submit 'Answer'
