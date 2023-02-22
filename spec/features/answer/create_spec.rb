@@ -24,7 +24,7 @@ feature "Authenticated user can create answers", %q{
       end
     end
 
-    scenario "Tries to create answer with invalid params" do
+    scenario "Tries to create answer with invalid params", js: true do
       fill_in "Body", with: ""
       click_on "Answer"
 
