@@ -11,8 +11,8 @@ feature "User is able to delete his answer", %q{
 
   scenario "User tries to delete his answer" do
     sign_in(author)
-
     visit question_path(question)
+    
     click_on 'Delete'
 
     expect(page).to have_content('Your answer has been successfully deleted.')
@@ -20,17 +20,18 @@ feature "User is able to delete his answer", %q{
 
   scenario "User tries to delete another's answer" do
     sign_in(user)
-
     visit question_path(question)
-    click_on 'Delete'
 
-    expect(page).to have_content("You can't delete another's answer.")
+    within '.answers' do
+      expect(page).not_to have_content('Delete')
+    end
   end
 
-  scenario "Unauthenticated user tries to delete question" do
+  scenario "Unauthenticated user tries to delete answer" do
     visit question_path(question)
-    click_on 'Delete'
 
-    expect(page).to have_content('You need to sign in or sign up before continuing.')
+    within '.answers' do
+      expect(page).not_to have_content('Delete')
+    end
   end
 end

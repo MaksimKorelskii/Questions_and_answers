@@ -73,7 +73,6 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'renders update view' do
         patch :update, params: { id: answer, answer: { body: 'new body' } }, format: :js
-        # expect(response).to redirect_to question_path(answer.question)
         expect(response).to render_template :update
       end
     end
@@ -87,7 +86,6 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'renders update view' do
         patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid) }, format: :js
-        # expect(response).to redirect_to question_path(answer.question)
         expect(response).to render_template :update
       end
     end
