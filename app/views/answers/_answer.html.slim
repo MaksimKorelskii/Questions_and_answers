@@ -2,7 +2,7 @@ tr
   td
     p
       = answer.body
-      - if user_signed_in? && answer.persisted?
+      - if current_user&.author?(answer) && answer.persisted?
         = link_to 'Delete',
                   answer_path(answer),
                   method: :delete
