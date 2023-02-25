@@ -12,7 +12,7 @@ h3 Answers
 h3 Send Answer
 .answer-errors
   = render 'shared/errors', resource: @answer
-= form_with model: [ @question, @answer ], method: :post, class: 'new-answer' do |f|
+= form_with model: [ @question, @answer ], class: 'new-answer' do |f|
   = f.label :body
   = f.text_area :body
   = f.submit 'Answer'
