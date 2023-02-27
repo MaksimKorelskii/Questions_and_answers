@@ -1,4 +1,5 @@
 $('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>')
+$('.flash').html('<%= render 'shared/flash' %>')
 
 <% if @answer.persisted? %>
   $('.answers').append('<%= j render @answer %>')
