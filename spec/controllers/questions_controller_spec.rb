@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:user) { create(:user) }
-  
+  let(:author) { create(:user) }
+
   describe 'GET #new' do
     before { login(user) }
     before { get :new }
@@ -96,6 +97,39 @@ RSpec.describe QuestionsController, type: :controller do
       it 'redirects to questions' do
         delete :destroy, params: { id: question }
         expect(response).to redirect_to questions_path
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    before { login(author) }
+    let!(:question) { create :question, author: author }
+
+    context 'with valid attributes' do
+      it 'changes question attributes' do
+        patch :update, params: { id: question, question: { title: 'new title', body: 'new body' } }, format: :js
+
+        question.reload
+        expect(question.title).to eq 'new title'
+        expect(question.body).to eq 'new body'
+      end
+
+      it 'renders update view' do
+        patch :update, params: { id: question, question: { title: 'new title', body: 'new body' } }, format: :js
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'does not change question attributes' do
+        expect do
+          patch :update, params: { id: question, question: attributes_for(:question, :invalid) }, format: :js
+        end.to_not change(question, :body)
+      end
+
+      it 'renders update view' do
+        patch :update, params: { id: question, question: attributes_for(:question, :invalid) }, format: :js
+        expect(response).to render_template :update
       end
     end
   end

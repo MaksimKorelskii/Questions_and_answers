@@ -12,6 +12,8 @@ feature 'User can edit his answer', %q{
   given!(:answer) { create(:answer, question: question, author: author) }
 
   scenario 'Unauthenticated can not edit answer' do
+    visit question_path(question)
+
     expect(page).to_not have_link 'Edit'
   end
 
@@ -23,9 +25,8 @@ feature 'User can edit his answer', %q{
       end
 
       scenario 'edits his answer', js: true do
-        click_on 'Edit'
-
         within '.answers' do
+          click_on 'Edit'
           fill_in 'Your answer', with: 'edited answer'
           click_on 'Save'
 

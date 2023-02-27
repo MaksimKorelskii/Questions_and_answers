@@ -17,12 +17,17 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer.update(answer_params)
-    @question = @answer.question
+    if current_user.author?(@answer)
+      @answer.update(answer_params)
+      @question = @answer.question
+      flash[:notice] = 'Your answer has been successfully edited.'
+    else
+      flash[:alert] = "You can't edited another's answer."
+    end
   end
 
   def destroy
-    if current_user&.author?(@answer)
+    if current_user.author?(@answer)
       @answer.destroy
       flash[:notice] = 'Your answer has been successfully deleted.'
     else

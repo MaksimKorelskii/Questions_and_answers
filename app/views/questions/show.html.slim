@@ -1,9 +1,24 @@
+.flash
+  p= render 'shared/flash'
+
+.question-errors
+  p= render 'shared/errors', resource: @question
+
 h3 Question
-p= @question.title
-p= @question.body
-p= link_to 'Delete question',
-            question_path(@question),
-            method: :delete
+.question
+  p= @question.title
+  p= @question.body
+  - if current_user&.author?(@question) && @question.persisted?
+    p= link_to 'Delete question',
+                question_path(@question),
+                method: :delete
+    p= link_to 'Edit', '#', class: 'edit-question-link'
+    = form_with model: @question, class: 'hidden', id: "edit-question" do |f|
+      = f.label :title
+      = f.text_field :title
+      = f.label :body, 'Your question'
+      = f.text_area :body
+      = f.submit 'Save'
 
 h3 Answers
 .answers
