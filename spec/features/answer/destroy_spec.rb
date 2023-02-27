@@ -7,15 +7,15 @@ feature "User is able to delete his answer", %q{
   given(:user) { create(:user) }
   given(:author) { create(:user) }
   given(:question) { create(:question, author: author) }
-  given!(:answers) { create(:answer, question: question, author: author) }
+  given!(:answer) { create(:answer, question: question, author: author) }
 
-  scenario "User tries to delete his answer" do
+  scenario "User tries to delete his answer", js: true do
     sign_in(author)
     visit question_path(question)
     
     click_on 'Delete'
 
-    expect(page).to have_content('Your answer has been successfully deleted.')
+    expect(page).not_to have_content answer.body
   end
 
   scenario "User tries to delete another's answer" do

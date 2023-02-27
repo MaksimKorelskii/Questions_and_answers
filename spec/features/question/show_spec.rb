@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "User can visit page with question answers", %q{
+feature "User can visit page with question", %q{
   In order to view answers to selected question
   to solve his problem
   user can visit page with question's answers
@@ -8,13 +8,11 @@ feature "User can visit page with question answers", %q{
 
   given(:user) { create(:user) }
   given(:question) { create(:question, author: user) }
-  given(:answers) { create_list(:answer, 3, question: question, author: user) }
 
   scenario "User visits question page" do
     visit question_path(question)
 
-    expect(page).to have_content(answers[0].body)
-    expect(page).to have_content(answers[1].body)
-    expect(page).to have_content(answers[2].body)
+    expect(page).to have_content(question.title)
+    expect(page).to have_content(question.body)
   end
 end

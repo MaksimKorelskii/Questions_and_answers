@@ -29,12 +29,11 @@ class AnswersController < ApplicationController
   def destroy
     if current_user.author?(@answer)
       @answer.destroy
+      @question = @answer.question
       flash[:notice] = 'Your answer has been successfully deleted.'
     else
       flash[:alert] = "You can't delete another's answer."
     end
-    
-    redirect_to @answer.question
   end
 
   private
