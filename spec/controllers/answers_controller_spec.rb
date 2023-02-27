@@ -37,12 +37,12 @@ RSpec.describe AnswersController, type: :controller do
       before { login(author) }
 
       it 'Author deletes the answer from database' do
-        expect { delete :destroy, params: { id: answer} }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, params: { id: answer}, format: :js }.to change(Answer, :count).by(-1)
       end
 
       it 'redirects to question/show' do
-        delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question_path(answer.question)
+        delete :destroy, params: { id: answer }, format: :js
+        expect(response).to render_template :destroy
       end
     end
 
@@ -50,12 +50,12 @@ RSpec.describe AnswersController, type: :controller do
       before { login(user) }
 
       it 'User tries to delete the answer from database' do
-        expect { delete :destroy, params: { id: answer} }.not_to change(Answer, :count)
+        expect { delete :destroy, params: { id: answer}, format: :js }.not_to change(Answer, :count)
       end
 
       it 'redirects to question/show' do
-        delete :destroy, params: { id: answer }
-        expect(response).to redirect_to question_path(answer.question)
+        delete :destroy, params: { id: answer }, format: :js
+        expect(response).to render_template :destroy
       end
     end
   end
