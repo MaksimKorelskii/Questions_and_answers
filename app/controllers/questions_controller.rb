@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[ show index ]
-  before_action :set_question, only: %i[ show destroy ]
+  before_action :set_question, only: %i[ show update destroy ]
 
   def index
     @questions = Question.all
@@ -20,6 +20,15 @@ class QuestionsController < ApplicationController
       redirect_to @question, notice: 'Question was created successfully'
     else
       render :new
+    end
+  end
+
+  def update
+    if current_user.author?(@question)
+      @question.update(question_params)
+      flash[:notice] = 'Your question has been successfully edited.'
+    else
+      flash[:alert] = "You can't edited another's question."
     end
   end
 

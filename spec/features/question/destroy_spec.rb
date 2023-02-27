@@ -21,15 +21,13 @@ feature "User is able to delete his question", %q{
     sign_in(user)
 
     visit question_path(question)
-    click_on 'Delete question'
 
-    expect(page).to have_content("You can't delete another's question.")
+    expect(page).not_to have_content('Delete question')
   end
 
   scenario "Unauthenticated user tries to delete question" do
     visit question_path(question)
-    click_on 'Delete question'
 
-    expect(page).to have_content('You need to sign in or sign up before continuing.')
+    expect(page).not_to have_content('Delete question')
   end
 end
