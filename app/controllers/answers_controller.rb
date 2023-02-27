@@ -14,6 +14,7 @@ class AnswersController < ApplicationController
     @answer = @question.answers.create(answer_params)
     @answer.author = current_user
     @answer.save
+    flash[:notice] = 'Your answer has been successfully created.'
   end
 
   def update

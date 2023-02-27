@@ -1,6 +1,9 @@
 .question-errors
   p= render 'shared/errors', resource: @question
 
+.flash
+  p= render 'shared/flash'
+
 h3 Question
 .question
   p= @question.title
