@@ -11,7 +11,7 @@ feature 'User can view list of the questions', %q{
   scenario 'User views questions' do
     visit questions_path
     questions.each do |question|
-      expect(page).to have_content question.body
+      expect(page).to have_content question.title
     end
   end
 end
