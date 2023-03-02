@@ -2,5 +2,5 @@ $('.answer-errors').html('<%= render 'shared/errors', resource: @answer %>')
 $('.flash').html('<%= render 'shared/flash' %>')
 
 <% if !@answer.errors.present? %>
-  $('.answers').html('<%= j render @question.answers %>')
+  $('.answers').html('<%= j render @answers %>')
 <% end %>

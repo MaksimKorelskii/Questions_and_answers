@@ -1,15 +1,26 @@
 tr
   td
     p
-      = answer.body
-      - if current_user&.author?(answer) && answer.persisted?
-        = link_to 'Delete',
-                  answer_path(answer),
-                  method: :delete,
-                  remote: true
-        = link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+    -if answer&.best == true
+      p Best Answer
 
-        = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
-          = f.label :body, 'Your answer'
-          = f.text_area :body
-          = f.submit 'Save'
+    p= answer.body
+
+    -if current_user&.author?(@question) && answer.persisted?
+      = link_to 'Mark as Best',
+                mark_as_best_answer_path(answer),
+                method: :patch,
+                remote: true
+
+    -if current_user&.author?(answer) && answer.persisted?
+      = link_to 'Delete',
+                answer_path(answer),
+                method: :delete,
+                remote: true
+
+      = link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+
+      = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+        = f.label :body, 'Your answer'
+        = f.text_area :body
+        = f.submit 'Save'

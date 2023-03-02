@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :questions, only: %i[ index new create show destroy update ] do
-    resources :answers, shallow: true, only: %i[ new create show destroy update ]
+    resources :answers, shallow: true, only: %i[ new create show destroy update ] do
+      patch :mark_as_best, on: :member
+    end
   end
 end
