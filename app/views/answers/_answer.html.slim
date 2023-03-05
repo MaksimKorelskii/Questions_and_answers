@@ -6,6 +6,10 @@ tr
 
     p= answer.body
 
+    - if answer.files.attached?
+      - answer.files.each do |file|
+        p= link_to file.filename.to_s, url_for(file)
+
     -if current_user&.author?(@question) && answer.persisted?
       = link_to 'Mark as Best',
                 mark_as_best_answer_path(answer),

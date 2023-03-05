@@ -5,8 +5,9 @@ feature "Authenticated user can create answers", %q{
   user can create answers
 } do
 
+  given(:author) { create(:user) }
   given(:user) { create(:user) }
-  given(:question) { create(:question, author: user) }
+  given(:question) { create(:question, author: author) }
 
   describe "Authenticated user" do
     background do
@@ -29,6 +30,16 @@ feature "Authenticated user can create answers", %q{
       click_on "Answer"
 
       expect(page).to have_content("Body can't be blank")
+    end
+
+    scenario 'create a answer with attached file', js: true do
+      fill_in 'Body', with: 'Answer Body'
+
+      attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+      click_on 'Answer'
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
     end
   end
 
