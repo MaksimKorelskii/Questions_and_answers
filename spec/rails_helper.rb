@@ -37,6 +37,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FeatureHelpers, type: :feature
   config.include FactoryBot::Syntax::Methods
+  config.include BlobHelper, type: :controller
 
   Capybara.javascript_driver = :selenium_chrome_headless
 
@@ -71,6 +72,10 @@ RSpec.configure do |config|
   config.after(:all) do
     FileUtils.rm_rf("#{Rails.root}/tmp/storage")
   end
+end
+
+FactoryBot::SyntaxRunner.class_eval do
+  include ActionDispatch::TestProcess
 end
 
 Shoulda::Matchers.configure do |config|
