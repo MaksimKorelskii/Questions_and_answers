@@ -43,12 +43,9 @@ feature "Authenticated user can create answers", %q{
     end
   end
 
-  scenario "Unauthenticated user Tries to create answer" do
+  scenario "Unauthenticated user Tries to create answer", js: true do
     visit question_path(question)
 
-    fill_in "Body", with: "MyText"
-    click_on "Answer"
-
-    expect(page).to have_content("You need to sign in or sign up before continuing.")
+    expect(page).not_to have_content("Send Answer")
   end
 end

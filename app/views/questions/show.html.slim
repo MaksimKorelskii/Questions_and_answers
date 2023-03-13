@@ -12,23 +12,25 @@ h3 Answers
 .answers
   p= render @answers
 
-h3 Send Answer
-.answer-errors
-  = render 'shared/errors', resource: @answer
-  
-= form_with model: [ @question, @answer ], class: 'new-answer' do |f|
-  = f.label :body
-  = f.text_area :body
-  = f.label :files
-  = f.file_field :files, multiple: true
-  p Links:
-  p
-    = f.fields_for :links do |l|
+.send-answer
+  -if current_user.present?
+    h3 Send Answer
+    .answer-errors
+      = render 'shared/errors', resource: @answer
+      
+    = form_with model: [ @question, @answer ], class: 'new-answer' do |f|
+      = f.label :body
+      = f.text_area :body
+      = f.label :files
+      = f.file_field :files, multiple: true
+      p Links:
       p
-        = l.label :name, 'Link name'
-        = l.text_field :name
-      p
-        = l.label :url
-        = l.text_field :url
+        = f.fields_for :links do |l|
+          p
+            = l.label :name, 'Link name'
+            = l.text_field :name
+          p
+            = l.label :url
+            = l.text_field :url
 
-  p= f.submit 'Answer'
+      p= f.submit 'Answer'
