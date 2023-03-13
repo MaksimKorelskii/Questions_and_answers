@@ -1,5 +1,5 @@
-tr
-  td
+ul 
+  li
     p
     -if answer&.best == true
       p Best Answer
@@ -8,7 +8,7 @@ tr
     .links
       p Links:
       ul 
-        - @answer.links.each do |link|
+        - answer.links.each do |link|
           li= link_to link.name, link.url
 
     - if answer.files.attached?

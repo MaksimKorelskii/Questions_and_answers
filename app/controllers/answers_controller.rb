@@ -10,12 +10,32 @@ class AnswersController < ApplicationController
   def show
 	end
 
+  # def create
+  #   @answer = @question.answers.create(answer_params)
+  #   @answer.author = current_user
+  #   @answer.save
+  #   if @answer.save
+  #     flash[:notice] = 'Your answer has been successfully created.'
+  #   else
+  #     render :new
+  #   end
+  # end
+
   def create
     @answer = @question.answers.create(answer_params)
     @answer.author = current_user
     @answer.save
     flash[:notice] = 'Your answer has been successfully created.'
   end
+
+  # def create
+  #   @question = current_user.questions.new(question_params)
+  #   if @question.save
+  #     redirect_to @question, notice: 'Question was created successfully'
+  #   else
+  #     render :new
+  #   end
+  # end
 
   def update
     if current_user.author?(@answer)

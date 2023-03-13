@@ -1,5 +1,16 @@
-p= question.title
-p= question.body
+table
+  tr 
+    td Title: 
+    td= question.title
+  tr 
+    td Body:
+    td= question.body
+
+.links
+  p Links:
+  ul 
+    - @question.links.each do |link|
+      li= link_to link.name, link.url
 
 - if question.files.attached?
   - question.files.each do |file|
@@ -13,10 +24,12 @@ p= question.body
                     remote: true
 
 - if current_user&.author?(question) && question.persisted?
-  p= link_to 'Delete question',
+  p
+    = link_to 'Delete question',
               question_path(question),
               method: :delete
-  p= link_to 'Edit', '#', class: 'edit-question-link'
+    = link_to 'Edit', '#', class: 'edit-question-link'
+
   = form_with model: question, class: 'hidden', id: "edit-question" do |f|
     = f.label :title
     = f.text_field :title
