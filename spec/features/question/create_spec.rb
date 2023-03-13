@@ -12,7 +12,7 @@ feature "User is able to create question", %q{
       sign_in(user)
 
       visit questions_path
-      click_on 'Ask question'
+      click_on 'Ask new question'
     end
 
     scenario "Asks a question with correct data" do
@@ -48,7 +48,7 @@ feature "User is able to create question", %q{
 
   scenario "Unauthenticated user can't ask question" do
     visit questions_path
-    click_on 'Ask question'
+    click_on 'Ask new question'
 
     expect(page).to have_content('You need to sign in or sign up before continuing.')
   end
