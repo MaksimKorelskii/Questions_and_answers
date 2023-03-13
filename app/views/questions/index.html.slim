@@ -1,5 +1,11 @@
+.flash
+  p= render 'shared/flash'
+
 p= link_to 'Log out', destroy_user_session_path, method: :delete
 
-tr= render @questions
+p Questions:
+ul
+  -@questions.each do |q|
+    li= link_to q.title, question_path(q)
 
-p= link_to 'Ask question', new_question_path
+p= link_to 'Ask new question', new_question_path

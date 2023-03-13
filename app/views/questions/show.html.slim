@@ -7,11 +7,6 @@
 h3 Question
 .question
   =render @question
-  .links
-    p Links:
-    ul 
-      - @question.links.each do |link|
-        li= link_to link.name, link.url
 
 h3 Answers
 .answers
@@ -20,6 +15,7 @@ h3 Answers
 h3 Send Answer
 .answer-errors
   = render 'shared/errors', resource: @answer
+  
 = form_with model: [ @question, @answer ], class: 'new-answer' do |f|
   = f.label :body
   = f.text_area :body
@@ -34,4 +30,5 @@ h3 Send Answer
       p
         = l.label :url
         = l.text_field :url
-      = f.submit 'Answer'
+
+  p= f.submit 'Answer'
