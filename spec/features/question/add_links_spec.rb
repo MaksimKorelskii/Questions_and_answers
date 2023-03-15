@@ -16,8 +16,12 @@ feature "User can add links to question", %q{
     fill_in 'Title', with: 'Question Title'
     fill_in 'Body', with: 'Question Body'
 
-    fill_in 'Link name', with: 'My gist'
-    fill_in 'Url', with: gist_url
+    click_on 'add link'
+    
+    within '.attachable-links' do
+      fill_in 'Name', with: 'My gist'
+      fill_in 'Url', with: gist_url
+    end
 
     click_on 'Ask'
 
