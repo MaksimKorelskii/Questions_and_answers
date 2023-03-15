@@ -39,8 +39,14 @@ ul
       = link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
 
       = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
-        = f.label :body, 'Your answer'
-        = f.text_area :body
-        = f.label :files
-        = f.file_field :files, multiple: true, direct_upload: true
+        p
+          = f.label :body, 'Your answer'
+          = f.text_area :body
+        p
+          = f.label :files
+          = f.file_field :files, multiple: true, direct_upload: true
+        .attachable-links
+          = f.fields_for :links do |link|
+          .links
+            = link_to_add_association 'add link', f, :links, partial: 'shared/link_fields'    
         = f.submit 'Save'

@@ -33,10 +33,16 @@ table
     = link_to 'Edit', '#', class: 'edit-question-link'
 
   = form_with model: question, class: 'hidden', id: "edit-question" do |f|
-    = f.label :title
-    = f.text_field :title
-    = f.label :body, 'Your question'
-    = f.text_area :body
-    = f.label :files
-    = f.file_field :files, multiple: true, direct_upload: true
+    p
+      = f.label :title
+      = f.text_field :title
+      = f.label :body, 'Your question'
+      = f.text_area :body
+    p
+      = f.label :files
+      = f.file_field :files, multiple: true, direct_upload: true
+    .attachable-links
+      = f.fields_for :links do |link|
+      .links
+        = link_to_add_association 'add link', f, :links, partial: 'shared/link_fields'    
     = f.submit 'Save'
