@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   
   devise_for :users
 
+  resources :links, only: :destroy
+
   resources :attachments, only: :destroy
 
   resources :questions, only: %i[ index new create show destroy update ] do
