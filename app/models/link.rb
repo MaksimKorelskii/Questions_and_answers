@@ -2,4 +2,5 @@ class Link < ApplicationRecord
   belongs_to :linkable, polymorphic: true
 
   validates :name, :url, presence: true
+  validates :url, format: { with: /\A#{URI::DEFAULT_PARSER.make_regexp}\z/ }, presence: true
 end
