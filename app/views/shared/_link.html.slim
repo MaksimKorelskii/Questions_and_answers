@@ -1,0 +1,6 @@
+li.attached-link id= link.id
+  = link_to link.name, link.url
+  / -if current_user&.author?(link.linkable)
+  /   = link_to "Delete", link_path(link), method: :delete, data: { confirm: 'Are you sure?' }, remote: true
+  / -if link.gist?
+  /   = javascript_include_tag(link.url + '.js')

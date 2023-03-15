@@ -9,9 +9,8 @@ table
 .links
   - if question.links.present?
     p Links:
-  ul 
-    - question.links.each do |link|
-      li= link_to link.name, link.url
+    ul 
+      = render partial: 'shared/link', collection: question.links, as: :link
 
 .files 
   - if question.files.attached?
