@@ -12,13 +12,16 @@ feature "User can add links to answer", %q{
   given!(:question) { create(:question, author: author) }
   given!(:answer) { create(:answer, question: question, author: author) }
 
-  scenario 'User adds link when asks answer', js: true do
-    sign_in(user)
+  scenario 'User adds link when create answer', js: true do
+    sign_in(author)
     visit question_path(question)
 
     fill_in "Body", with: "Answer Body"
-    fill_in 'Name', with: 'My gist'
-    fill_in 'Url', with: gist_url
+    click_on 'add link'
+      within '.attachable-links' do
+        fill_in 'Name', with: 'My gist'
+        fill_in 'Url', with: gist_url
+      end
 
     click_on "Answer"
 
