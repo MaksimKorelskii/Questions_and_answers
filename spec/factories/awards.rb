@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :award do
-    name { "MyString" }
-    link { "MyString" }
+    name { "Award Ruby" }
+    link { "https://upload.wikimedia.org/wikipedia/commons/7/73/Ruby_logo.svg" }
   end
 end
