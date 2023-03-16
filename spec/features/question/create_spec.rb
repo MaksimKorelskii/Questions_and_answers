@@ -44,6 +44,17 @@ feature "User is able to create question", %q{
       expect(page).to have_link 'rails_helper.rb'
       expect(page).to have_link 'spec_helper.rb'
     end
+
+    scenario 'Asks questions with an award' do
+      fill_in 'Title', with: 'Question Title'
+      fill_in 'Body', with: 'Question Body'
+
+      fill_in 'Award', with: 'Link Name Award'
+      fill_in 'Link', with: 'https://photo.com'
+      click_on 'Ask'
+
+      expect(page).to have_content 'Question with an Award!'
+    end
   end
 
   scenario "Unauthenticated user can't ask question" do
