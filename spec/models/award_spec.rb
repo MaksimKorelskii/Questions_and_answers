@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Award, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to(:user).optional(true) }
+  it { should belong_to :question }
+
+  it { should validate_presence_of :name }
+  it { should validate_presence_of :link }
 end
