@@ -11,7 +11,7 @@ feature "User can add links to question", %q{
   given!(:author) { create(:user) }
   given!(:question) { create(:question, author: author) }
 
-  scenario 'User adds links when asks question' do
+  scenario 'User adds links when asks question', js: true do
     sign_in(author)
     visit new_question_path
 
