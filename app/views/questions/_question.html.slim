@@ -6,6 +6,10 @@ table
     td Body:
     td= question.body
 
+.award
+  - if question.award.present?
+  h5 Question with an Award!
+
 .links
   - if question.links.present?
     p Links:
