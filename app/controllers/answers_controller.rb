@@ -11,10 +11,24 @@ class AnswersController < ApplicationController
 	end
 
   def create
-    @answer = @question.answers.create(answer_params)
+    @answer = @question.answers.new(answer_params)
     @answer.author = current_user
     @answer.save
-    flash[:notice] = 'Your answer has been successfully created.' if @answer.save
+    # flash[:notice] = 'Your answer has been successfully created.' if @answer.save
+
+    respond_to do | format |
+      if @answer.save
+        flash[:notice] = 'Your answer has been successfully created.'
+        format.html { render @answer}
+      else
+        format.html do 
+          render partial: 'shared/errors',
+                 locals: { resource: @answer },
+                 status: :unprocessable_entity
+        end
+      # format.js
+      end
+    end
   end
 
   def update
