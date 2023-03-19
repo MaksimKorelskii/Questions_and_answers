@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  include Rated
+
   before_action :authenticate_user!, except: %i[ show ]
   before_action :set_question, only: %i[ new create show ]
   before_action :set_answer, only: %i[ update destroy mark_as_best ]
@@ -8,26 +10,13 @@ class AnswersController < ApplicationController
   end
 
   def show
-	end
+  end
 
   def create
-    @answer = @question.answers.new(answer_params)
+    @answer = @question.answers.create(answer_params)
     @answer.author = current_user
     @answer.save
-    # flash[:notice] = 'Your answer has been successfully created.' if @answer.save
-
-    respond_to do | format |
-      if @answer.save
-        flash[:notice] = 'Your answer has been successfully created.'
-        format.json { render json: @answer}
-      else
-        format.json do 
-          render json: @answer.errors.full_messages,
-                 status: :unprocessable_entity # чтобы отрабатывал обработчик AJAX error
-        end
-      # format.js
-      end
-    end
+    flash[:notice] = 'Your answer has been successfully created.' if @answer.save
   end
 
   def update

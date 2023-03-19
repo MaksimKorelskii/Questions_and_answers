@@ -6,6 +6,9 @@ table
     td Body:
     td= question.body
 
+.rates
+  p= render 'shared/rate', resource: question
+
 .award
   - if question.award.present?
     h5 Question with an Award!
