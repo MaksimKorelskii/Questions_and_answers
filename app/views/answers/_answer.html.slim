@@ -5,6 +5,9 @@ ul
       p Best Answer
 
     p= answer.body
+
+    p= render 'shared/rate', resource: answer
+
     .links
       - if answer.links.present?
         p Links:

@@ -1,0 +1,9 @@
+.rate
+  .rating id= "#{resource.class.to_s.downcase}-#{resource.id}"
+    = resource.total_rating
+  - if !current_user&.author?(resource) && user_signed_in?
+    = link_to 'Uprate', polymorphic_path([:uprate, resource]),
+              method: :patch, remote: true,
+              data: { type: :json }
+    = link_to 'Downrate', polymorphic_path([:downrate, resource]), method: :patch, remote: true, data: { type: :json }
+    = link_to 'Cancel', polymorphic_path([:cancel, resource]), method: :delete, remote: true, data: { type: :json }

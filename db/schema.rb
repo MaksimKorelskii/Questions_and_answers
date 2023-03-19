@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_16_130016) do
+ActiveRecord::Schema.define(version: 2023_03_19_101241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,17 @@ ActiveRecord::Schema.define(version: 2023_03_16_130016) do
     t.index ["author_id"], name: "index_questions_on_author_id"
   end
 
+  create_table "rates", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "value"
+    t.string "rateable_type"
+    t.bigint "rateable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["rateable_type", "rateable_id"], name: "index_rates_on_rateable_type_and_rateable_id"
+    t.index ["user_id"], name: "index_rates_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -95,4 +106,5 @@ ActiveRecord::Schema.define(version: 2023_03_16_130016) do
   add_foreign_key "awards", "questions"
   add_foreign_key "awards", "users"
   add_foreign_key "questions", "users", column: "author_id"
+  add_foreign_key "rates", "users"
 end
