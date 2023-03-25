@@ -6,6 +6,7 @@ class Question < ApplicationRecord
   has_one :award, dependent: :destroy
   has_many :answers, dependent: :destroy
   has_many :links, dependent: :destroy, as: :linkable
+  has_many :comments, as: :commentable, dependent: :destroy
 
   has_many_attached :files
 

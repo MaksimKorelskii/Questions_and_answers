@@ -32,6 +32,12 @@ table
                     method: :delete,
                     remote: true
 
+= render 'comments/form', commentable: question
+
+.comments
+  -if question.comments.any?
+    = render question.comments
+
 - if current_user&.author?(question) && question.persisted?
   p
     = link_to 'Delete question',

@@ -53,3 +53,9 @@ ul
           .links
             = link_to_add_association 'add link', f, :links, partial: 'shared/link_fields'    
         = f.submit 'Save'
+
+= render 'comments/form', commentable: answer
+
+.comments
+  -if answer.comments.any?
+    = render answer.comments

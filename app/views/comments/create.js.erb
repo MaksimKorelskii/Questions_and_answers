@@ -1,0 +1,10 @@
+<% if @comment.errors.any? %>
+  $('.comment-errors').html('<%= render 'shared/errors', resource: @comment %>')
+<% end %>
+<% if @comment.commentable.is_a? Answer %>
+  $('#<%= @comment.commentable_id %>.answer .comments').append('<%= j render @comment %>')
+  $('#<%= @comment.commentable_id %>.answer .comment-form').find('#comment_content').val('')
+<% else %>
+  $('.question .comments').append('<%= j render @comment %>')
+  $('#<%= @comment.commentable_id %>.question .comment-form').find('#comment_content').val('')
+<% end %>

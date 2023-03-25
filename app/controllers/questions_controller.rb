@@ -4,6 +4,8 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[ show index ]
   before_action :set_question, only: %i[ show update destroy ]
 
+  after_action :publish_question, only: :create
+
   def index
     @questions = Question.all
   end
@@ -15,6 +17,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    gon.question_id = @question.id
     @answer = @question.answers.new
     @answers = @question.answers.sort_by_best
     @answer.links.new # .build 
@@ -60,5 +63,17 @@ class QuestionsController < ApplicationController
                                     links_attributes: [ :name, :url ],
                                     award_attributes: [ :name, :link ],
                                     files: [])
+  end
+
+  def publish_question
+    return if @question.errors.any?
+
+    ActionCable.server.broadcast('questions_channel',
+                                 html:
+                                  ApplicationController.render(
+                                    partial: 'questions/question_index',
+                                    locals: { question: @question }
+                                  ),
+                                 author_id: current_user.id)
   end
 end

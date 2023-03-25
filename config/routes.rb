@@ -17,8 +17,11 @@ Rails.application.routes.draw do
   end
 
   resources :questions, only: %i[ index new create show destroy update ], concerns: :rated do
+    resources :comments, only: :create, context: 'Question', on: :member
+
     resources :answers, shallow: true, only: %i[ new create show destroy update ], concerns: :rated do
       patch :mark_as_best, on: :member
+      resources :comments, only: :create, context: 'Answer', on: :member
     end
   end
 end

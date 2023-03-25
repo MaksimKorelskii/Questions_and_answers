@@ -5,6 +5,8 @@ class AnswersController < ApplicationController
   before_action :set_question, only: %i[ new create show ]
   before_action :set_answer, only: %i[ update destroy mark_as_best ]
 
+  after_action :publish_answer, only: :create
+
   def new
     @answer = @question.answers.new
   end
@@ -64,5 +66,14 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body, links_attributes: [ :name, :url ], files: [])
+  end
+
+  def publish_answer
+    return if @answer.errors.any?
+
+    ActionCable.server.broadcast "question_channel_#{@answer.question.id}",
+                                 html: ApplicationController.render(partial: 'answers/answer_ws',
+                                 locals: { answer: @answer }),
+                                 author_id: current_user.id
   end
 end
