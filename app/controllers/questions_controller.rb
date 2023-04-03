@@ -6,17 +6,24 @@ class QuestionsController < ApplicationController
 
   after_action :publish_question, only: :create
 
+  authorize_resource # метод CanCan, который для каждого экшна выполняет authorize! с нужными аргументами и параметрами.
+  # load_and_authorize_resource
+
   def index
+    # authorize! :index, Question # второй параметр это коллекция класса Question. когда вызывается authorize создаётся класс Ability, ему передаётся user = current_user и выполняется can с соответствующей ролью (read - show and index)
+    # authorize! :read, Question
     @questions = Question.all
   end
 
   def new
+    # authorize! :create, Question
     @question = Question.new
     @question.links.new # .build
     @question.build_award
   end
 
   def show
+    # authorize! :read, @question
     gon.question_id = @question.id
     @answer = @question.answers.new
     @answers = @question.answers.sort_by_best
@@ -42,6 +49,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    # authorize! :destroy, Question
     if current_user.author?(@question)
       @question.destroy
       flash[:notice] = 'Your question has been successfully deleted.'

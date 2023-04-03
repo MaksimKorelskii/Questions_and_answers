@@ -35,6 +35,7 @@ gem 'devise'
 gem 'launchy'
 gem 'cocoon'
 gem 'gon'
+gem 'cancancan'
 
 # OAuht
 gem 'omniauth'
