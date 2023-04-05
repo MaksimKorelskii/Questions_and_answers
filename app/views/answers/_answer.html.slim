@@ -21,24 +21,25 @@ ul
         - answer.files.each do |file|
           .attachment id = file.id
             li= link_to file.filename.to_s, url_for(file)
-            -if current_user&.author?(file.record)
+            - if can?(:destroy, answer)
               = link_to 'Delete file',
                         attachment_path(file),
                         method: :delete,
                         remote: true
 
-    -if current_user&.author?(@question) && answer.persisted?
+    -if can?(:mark_as_best, answer)
       = link_to 'Mark as Best',
                 mark_as_best_answer_path(answer),
                 method: :patch,
                 remote: true
 
-    -if current_user&.author?(answer) && answer.persisted?
+    -if can?(:destroy, answer)
       = link_to 'Delete',
                 answer_path(answer),
                 method: :delete,
                 remote: true
 
+    -if can?(:update, answer)
       = link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
 
       = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
