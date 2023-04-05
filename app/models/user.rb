@@ -11,6 +11,10 @@ class User < ApplicationRecord
   has_many :rates
   has_many :authorizations, dependent: :destroy
 
+  def admin!
+    update!(admin: true)
+  end
+
   # использование делегирования метода в сервис, чтобы не переписывать контроллер и тесты
   def self.find_for_oauth(auth_data)
     FindForOauthService.new(auth_data).call

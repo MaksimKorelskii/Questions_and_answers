@@ -26,7 +26,7 @@ table
     - question.files.each do |file|
       .attachment id = file.id
         li= link_to file.filename.to_s, url_for(file)
-        -if current_user&.author?(file.record)
+        - if can?(:destroy, question)
           = link_to 'Delete file',
                     attachment_path(file),
                     method: :delete,
@@ -38,12 +38,12 @@ table
   -if question.comments.any?
     = render question.comments
 
-- if current_user&.author?(question) && question.persisted?
-  p
-    = link_to 'Delete question',
-              question_path(question),
-              method: :delete
-    = link_to 'Edit', '#', class: 'edit-question-link'
+-if can?(:destroy, question)
+  = link_to 'Delete question',
+            question_path(question),
+            method: :delete
+-if can?(:update, question)
+  = link_to 'Edit', '#', class: 'edit-question-link'
 
   = form_with model: question, class: 'hidden', id: "edit-question" do |f|
     p

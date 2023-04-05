@@ -5,6 +5,13 @@ RSpec.describe User, type: :model do
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_many(:authorizations).dependent(:destroy) }
 
+  describe '#admin!' do
+    let!(:user) { create(:user, admin: false) }
+    before { user.admin! }
+
+    it { expect(user).to be_admin }
+  end
+
   describe '.find_for_oauth' do
     let!(:user) { create(:user) }
     let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: 'test') }

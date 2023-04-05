@@ -17,18 +17,37 @@ class Ability
 
   private
 
-  def user_abilities
-    guest_abilities
-    # can :destroy, Question, { user_id: user.id }
-    can :create, [Question, Answer, Comment]
-    can :update, [Question, Answer, Comment], { author_id: user.id } #author: user
-  end
-
   def admin_abilities
     can :manage, :all
   end
 
   def guest_abilities
     can :read, :all
+  end
+
+  def user_abilities
+    guest_abilities
+
+    can :create, [Question, Answer, Comment]
+
+    can :update, [Question, Answer], { author_id: user.id }
+
+    can :destroy, [Question, Answer], { author_id: user.id }
+
+    can :destroy, ActiveStorage::Attachment do |attachment|
+      user.author?(attachment.record)
+    end
+
+    can :destroy, Link do |link|
+      user.author?(link.linkable)
+    end
+
+    can :mark_as_best, Answer do |answer|
+      user.author?(answer.question)
+    end
+
+    can [:uprate, :downrate, :cancel], [Question, Answer] do |rateable|
+      !user.author?(rateable)
+    end
   end
 end

@@ -15,7 +15,7 @@ h3 Answers
   p= render @answers
 
 .send-answer
-  -if current_user.present?
+  -if can?(:create, Answer)
     h3 Send Answer
     .answer-errors
       = render 'shared/errors', resource: @answer
