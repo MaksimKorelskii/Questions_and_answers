@@ -37,6 +37,9 @@ gem 'cocoon'
 gem 'gon'
 gem 'cancancan'
 
+# API
+gem 'doorkeeper'
+
 # OAuht
 gem 'omniauth'
 gem 'omniauth-github'
