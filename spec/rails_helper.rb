@@ -38,7 +38,8 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FeatureHelpers, type: :feature
   config.include FactoryBot::Syntax::Methods
-  config.include BlobHelper, type: :controller
+  config.include BlobHelpers, type: :controller
+  config.include ApiHelpers, type: :request
 
   Capybara.javascript_driver = :selenium_chrome_headless
 

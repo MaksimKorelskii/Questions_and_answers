@@ -1,4 +1,4 @@
-module BlobHelper
+module BlobHelpers
   def blob
     ActiveStorage::Blob.create_and_upload!(
       io: File.open(Rails.root.join('spec', 'rails_helper.rb')),
