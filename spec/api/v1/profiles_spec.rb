@@ -29,22 +29,6 @@ describe 'Profiles API', type: :request do
 
       it 'returns 200 status' do
         expect(response).to be_successful
-
-      # before do
-      #   get api_path,
-      #       params: { access_token: access_token },
-      #       headers: headers
-      # end
-
-      # it_behaves_like 'Status be_successful'
-
-      # it_behaves_like 'Returns all public fields' do
-      #   let(:attributes) { %w[id email admin] }
-      #   let(:resource) { json['user'] }
-      #   let(:object) { me }
-      # end
-
-      # it_behaves_like 'Does not return private fields'
       end
 
       it 'returns all publick fields' do
