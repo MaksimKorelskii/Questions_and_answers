@@ -9,6 +9,14 @@ Rails.application.routes.draw do
   resources :links, only: :destroy
   resources :attachments, only: :destroy
 
+  namespace :api do
+    namespace :v1 do
+      resource :profiles, only: [] do
+        get :me, on: :collection
+      end
+    end
+  end
+
   concern :rated do
     member do
       patch :uprate
