@@ -37,6 +37,9 @@ gem 'cocoon'
 gem 'gon'
 gem 'cancancan'
 
+# A fast JSON parser and Object marshaller
+gem 'oj'
+
 # API
 gem 'doorkeeper'
 
