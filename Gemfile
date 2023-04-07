@@ -40,6 +40,9 @@ gem 'cancancan'
 # API
 gem 'doorkeeper'
 
+# Serializer
+gem 'active_model_serializers', '~> 0.10.0'
+
 # OAuht
 gem 'omniauth'
 gem 'omniauth-github'
