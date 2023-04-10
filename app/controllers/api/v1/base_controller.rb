@@ -7,9 +7,7 @@ class Api::V1::BaseController < ApplicationController
   private
 
   def current_resource_owner
-    # @current_resource_owner = User.first
     @current_resource_owner ||= User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
-    # @current_resource_owner ||= doorkeeper_token ? User.find(doorkeeper_token.resource_owner_id) : User.first
   end
 
   def current_user

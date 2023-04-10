@@ -153,20 +153,7 @@ describe 'Question API', type: :request do
           let(:resource) { question_response['links'] }
           let(:list_size) { 4 }
         end
-
-        # it_behaves_like 'Returns all public fields' do
-        #   let(:attributes) { %w[id name url] }
-        #   let(:resource) { link_response }
-        #   let(:object) { link }
-        # end
       end
-
-      # context 'Files' do
-      #   it_behaves_like 'API List' do
-      #     let(:resource) { question_response['files'] }
-      #     let(:list_size) { 1 }
-      #   end
-      # end
 
       context 'Comments' do
         let(:comment) { comments.first }
