@@ -68,9 +68,6 @@ describe 'Question API', type: :request do
     end
   end
 
-
-
-
   describe 'POST /api/v1/questions' do
     let(:api_path) { '/api/v1/questions' }
 
