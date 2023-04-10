@@ -1,16 +1,11 @@
 class Api::V1::QuestionsController < Api::V1::BaseController
   before_action :set_question, only: %i[ show update destroy ]
-  # skip_before_action :verify_authenticity_token
+
   authorize_resource
 
   def index
     @questions = Question.all
-    # render json: @questions.to_json(include: %i[ answers ])
-
     render json: @questions, each_serializer: QuestionsSerializer
-
-    # render json: @questions, serializer: <имя класса сериалайзера> для объекта
-    # render json: @questions, each_serializer: <имя класса сериалайзера> для коллекции
   end
 
   def show
