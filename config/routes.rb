@@ -1,4 +1,10 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  authenticate :user, lambda { |user| user.admin? } do
+    mount Sidekiq::Web => '/sidekiq' # энджайн - встраиваемое приложение в наше приложение
+  end
+  
   use_doorkeeper
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: "questions#index"

@@ -37,6 +37,15 @@ gem 'cocoon'
 gem 'gon'
 gem 'cancancan'
 
+# Task Manager запускается: wheneverize .
+gem 'whenever', require: false
+
+# For web interface for sidekiq
+gem 'sinatra', require: false
+
+# Background jobs
+gem 'sidekiq', '<7'
+
 # A fast JSON parser and Object marshaller
 gem 'oj'
 
