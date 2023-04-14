@@ -1,2 +1,6 @@
-h1 DailyDigest#digest
-p = "#{@greeting}, find me in app/views/daily_digest_mailer/digest.html.slim"
+h1 New questions for a day
+ul
+  - @questions.each do |question|
+    li
+      = question.created_at.strftime('%H:%M - ')
+      = link_to question.title, question_url(question)
