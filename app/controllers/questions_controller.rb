@@ -24,8 +24,6 @@ class QuestionsController < ApplicationController
     @answer = @question.answers.new
     @answers = @question.answers.sort_by_best
     @answer.links.new
-
-    # @subscription = @question.subscriptions.find_by(subscriber: current_user) if current_user
   end
 
   def create
