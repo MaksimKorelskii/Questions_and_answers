@@ -10,6 +10,7 @@ RSpec.describe DailyDigestJob, type: :job do
 
   it 'calls DailyDigestService#send_digest' do
     expect(service).to receive(:send_digest)
+    
     DailyDigestJob.perform_now
   end
 end
