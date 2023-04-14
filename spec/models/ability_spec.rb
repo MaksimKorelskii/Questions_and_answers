@@ -48,6 +48,10 @@ RSpec.describe Ability do
       create(:answer, :with_file, question: other_question, author: other_user).files.first
     end
 
+    let(:other_question_subscription) do
+      other_question.subscriptions.find_by!(subscriber: other_user)
+    end
+
     context 'for all' do
       it { should     be_able_to :read,   :all }
       it { should_not be_able_to :manage, :all }
@@ -140,6 +144,16 @@ RSpec.describe Ability do
 
       context '#create_comment for answer' do
         it { should be_able_to :create, Answer }
+      end
+    end
+
+    context 'Subscription' do
+      describe '#create' do
+        it { should be_able_to :create, Subscription }
+      end
+
+      describe '#destroy' do
+        it { should     be_able_to :destroy, Subscription }
       end
     end
   end

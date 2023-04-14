@@ -8,6 +8,9 @@ h3 Question
 .question
   =render @question
 
+- if user_signed_in?
+  = render 'subscriptions/subscription'
+
 p= link_to 'Back to questions', questions_path, local: true
 
 h3 Answers

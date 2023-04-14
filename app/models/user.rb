@@ -8,8 +8,9 @@ class User < ApplicationRecord
   has_many :awards, dependent: :destroy
   has_many :questions, foreign_key: 'author_id', dependent: :destroy
   has_many :answers, foreign_key: 'author_id', dependent: :destroy
-  has_many :rates
+  has_many :rates, dependent: :destroy
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, foreign_key: 'subscriber_id', dependent: :destroy
 
   def admin!
     update!(admin: true)

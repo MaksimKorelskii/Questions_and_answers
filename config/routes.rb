@@ -42,5 +42,7 @@ Rails.application.routes.draw do
       patch :mark_as_best, on: :member
       resources :comments, only: :create, context: 'Answer', on: :member
     end
+
+    resources :subscriptions, shallow: true, only: %i[ create destroy ]
   end
 end

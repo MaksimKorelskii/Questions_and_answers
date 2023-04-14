@@ -3,10 +3,12 @@ class Question < ApplicationRecord
   
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 
-  has_one :award, dependent: :destroy
-  has_many :answers, dependent: :destroy
-  has_many :links, dependent: :destroy, as: :linkable
-  has_many :comments, as: :commentable, dependent: :destroy
+  has_one :award,          dependent: :destroy
+  has_many :answers,       dependent: :destroy
+  has_many :links,         dependent: :destroy, as: :linkable
+  has_many :comments,      dependent: :destroy, as: :commentable
+  has_many :subscriptions, dependent: :destroy
+  has_many :subscribers,   through: :subscriptions
 
   has_many_attached :files
 

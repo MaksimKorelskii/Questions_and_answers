@@ -11,6 +11,8 @@ class Answer < ApplicationRecord
 
   validates :body, presence: true
 
+  after_create :notify_about_new_answer
+
   scope :sort_by_best, -> { order(best: :desc) }
 
   def mark_as_best
@@ -19,5 +21,13 @@ class Answer < ApplicationRecord
       update(best: true)
       question.award&.update!(user: author)
     end
+  end
+
+  private
+
+  def notify_about_new_answer
+    return unless self.question.subscribers.exists?
+
+    NewAnswerNotificationJob.perform_later(self)
   end
 end

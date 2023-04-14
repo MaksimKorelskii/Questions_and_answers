@@ -4,6 +4,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:questions).dependent(:destroy) }
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_many(:authorizations).dependent(:destroy) }
+  it { should have_many(:subscriptions).with_foreign_key('subscriber_id').dependent(:destroy) }
 
   describe '#admin!' do
     let!(:user) { create(:user, admin: false) }
