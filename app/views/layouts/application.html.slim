@@ -12,4 +12,11 @@ html
     p= current_user&.email
     p= notice
     p= alert
+
+    .search
+      = form_with url: search_path, local: true, method: :get do |f|
+        = f.text_field :search_query
+        = f.select     :search_by, SearchService::SEARCH_TYPES, selected: 'all'
+        = f.submit     'Find'
+
     = yield

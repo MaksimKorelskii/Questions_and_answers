@@ -37,6 +37,10 @@ gem 'cocoon'
 gem 'gon'
 gem 'cancancan'
 
+# Sphinx
+gem 'mysql2'
+gem 'thinking-sphinx'
+
 # Task Manager запускается: wheneverize .
 gem 'whenever', require: false
 
@@ -86,6 +90,9 @@ group :test do
   gem 'webdrivers'
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+
+   # Strategies for cleaning databases
+  gem 'database_cleaner-active_record'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

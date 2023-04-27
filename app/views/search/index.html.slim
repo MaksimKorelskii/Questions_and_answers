@@ -1,0 +1,15 @@
+h2 Results:
+.results
+  - if @result.empty?
+    p = 'Not found'
+  - else
+    - @result.each do |item|
+      - case item
+      - when Question
+        p = link_to item.title, question_path(item)
+      - when Answer
+        p = link_to item.body, question_path(item.question)
+      - when Comment
+        p = link_to item.content, question_path(item.commentable_type == 'Question' ? item.commentable : item.commentable.question)
+      - else
+        p = item.email
