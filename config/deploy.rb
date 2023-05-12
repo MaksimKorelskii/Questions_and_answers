@@ -11,6 +11,8 @@ set :repo_url, "git@github.com:MaksimKorelskii/Questions_and_answers.git"
 set :deploy_to, "/home/deployer/qna"
 set :deploy_user, "deployer"
 
+set :pty, false
+
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
