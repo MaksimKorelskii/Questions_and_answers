@@ -1,62 +1,63 @@
-ul 
-  li
-    p
-    -if answer&.best == true
-      p Best Answer
+- cache answer do
+  ul 
+    li
+      p
+      -if answer&.best == true
+        p Best Answer
 
-    p= answer.body
+      p= answer.body
 
-    p= render 'shared/rate', resource: answer
+      p= render 'shared/rate', resource: answer
 
-    .links
-      - if answer.links.present?
-        p Links:
-        ul 
-          = render partial: 'shared/link', collection: answer.links, as: :link
+      .links
+        - if answer.links.present?
+          p Links:
+          ul 
+            = render partial: 'shared/link', collection: answer.links, as: :link
 
-    .files 
-      - if answer.files.attached?
-        p Files:
-      ul
-        - answer.files.each do |file|
-          .attachment id = file.id
-            li= link_to file.filename.to_s, url_for(file)
-            - if can?(:destroy, answer)
-              = link_to 'Delete file',
-                        attachment_path(file),
-                        method: :delete,
-                        remote: true
+      .files 
+        - if answer.files.attached?
+          p Files:
+        ul
+          - answer.files.each do |file|
+            .attachment id = file.id
+              li= link_to file.filename.to_s, url_for(file)
+              - if can?(:destroy, answer)
+                = link_to 'Delete file',
+                          attachment_path(file),
+                          method: :delete,
+                          remote: true
 
-    -if can?(:mark_as_best, answer)
-      = link_to 'Mark as Best',
-                mark_as_best_answer_path(answer),
-                method: :patch,
-                remote: true
+      -if can?(:mark_as_best, answer)
+        = link_to 'Mark as Best',
+                  mark_as_best_answer_path(answer),
+                  method: :patch,
+                  remote: true
 
-    -if can?(:destroy, answer)
-      = link_to 'Delete',
-                answer_path(answer),
-                method: :delete,
-                remote: true
+      -if can?(:destroy, answer)
+        = link_to 'Delete',
+                  answer_path(answer),
+                  method: :delete,
+                  remote: true
 
-    -if can?(:update, answer)
-      = link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+      -if can?(:update, answer)
+        = link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
 
-      = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
-        p
-          = f.label :body, 'Your answer'
-          = f.text_area :body
-        p
-          = f.label :files
-          = f.file_field :files, multiple: true, direct_upload: true
-        .attachable-links
-          = f.fields_for :links do |link|
-          .links
-            = link_to_add_association 'add link', f, :links, partial: 'shared/link_fields'    
-        = f.submit 'Save'
+        = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+          p
+            = f.label :body, 'Your answer'
+            = f.text_area :body
+          p
+            = f.label :files
+            = f.file_field :files, multiple: true, direct_upload: true
+          .attachable-links
+            = f.fields_for :links do |link|
+            .links
+              = link_to_add_association 'add link', f, :links, partial: 'shared/link_fields'    
+          = f.submit 'Save'
 
-= render 'comments/form', commentable: answer
+  = render 'comments/form', commentable: answer
 
-.comments
-  -if answer.comments.any?
-    = render answer.comments
+  .comments
+    -if answer.comments.any?
+      = render answer.comments

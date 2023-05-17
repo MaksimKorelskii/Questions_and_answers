@@ -1,7 +1,8 @@
--if user_signed_in?
-  .comment-form
-    = form_with model: [commentable, Comment], local: false do |f|
-      p
-        = f.label :content
-        = f.text_field :content
-      = f.submit 'Submit Comment'
+- cache ['comment_form', commentable]
+  -if user_signed_in?
+    .comment-form
+      = form_with model: [commentable, Comment], local: false do |f|
+        p
+          = f.label :content
+          = f.text_field :content
+        = f.submit 'Submit Comment'

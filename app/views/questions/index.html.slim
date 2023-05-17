@@ -8,9 +8,10 @@ p Questions:
 / ul
 /   -@questions.each do |q|
 /     li= link_to q.title, question_path(q)
-.questions
-  = render partial: 'questions/question_index',
-           collection: @questions,
-           as: :question
--if can?(:create, Question)
-  p= link_to 'Ask new question', new_question_path
+- cache collection_cache_key_for :question do
+  .questions
+    = render partial: 'questions/question_index',
+            collection: @questions,
+            as: :question
+  -if can?(:create, Question)
+    p= link_to 'Ask new question', new_question_path
