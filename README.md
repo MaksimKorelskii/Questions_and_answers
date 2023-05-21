@@ -1,24 +1,12 @@
-# README
+Question and Answer
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Web application for questions and answers.
 
-Things you may want to cover:
+Used technologies:
+ActionCable
+ActiveStorage
+ActiveJob и sidekiq
+OAuth
+Sphinx
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Education app from online-school 'Thinknetica'
