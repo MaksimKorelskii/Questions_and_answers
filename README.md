@@ -1,12 +1,12 @@
-Question and Answer
+<h2>Question and Answer</h2>
 
 Web application for questions and answers.
 
-Used technologies:
-ActionCable
-ActiveStorage
-ActiveJob и sidekiq
-OAuth
-Sphinx
+<h4>Used technologies:</h4>
+- ActionCable
+- ActiveStorage
+- ActiveJob и sidekiq
+- OAuth
+- Sphinx
 
-Education app from online-school 'Thinknetica'
+<h3>Education app from online-school 'Thinknetica'<h3>
